@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ProfileCoordinator {
+class ProfileBasicCoordinator {
     let view: UIViewController
     let di: DI
     
@@ -38,11 +38,11 @@ class ProfileCoordinator {
     }
 }
 
-class MainCoordinator {
+class MainBasicCoordinator {
     let view: UIWindow
     let di: DI
     
-    var profileCoordinator: ProfileCoordinator?
+    var profileCoordinator: ProfileBasicCoordinator?
     
     var mainController: MainViewController?
     
@@ -58,7 +58,7 @@ class MainCoordinator {
         
         viewModel.profileRequested
             .bind(onNext: { [unowned controller, unowned self] _ in
-                let profileCoordinator = ProfileCoordinator(view: controller, di: self.di)
+                let profileCoordinator = ProfileBasicCoordinator(view: controller, di: self.di)
                 self.profileCoordinator = profileCoordinator
                 profileCoordinator.done
                     .bind(onNext: { [unowned self] _ in
@@ -79,7 +79,7 @@ class MainCoordinator {
             if let profileCoordinator = self.profileCoordinator {
                 return profileCoordinator.handleLink(profileLink)
             }
-            let profileCoordinator = ProfileCoordinator(view: mainController, di: di)
+            let profileCoordinator = ProfileBasicCoordinator(view: mainController, di: di)
             if profileCoordinator.handleLink(profileLink) {
                 self.profileCoordinator = profileCoordinator
                 

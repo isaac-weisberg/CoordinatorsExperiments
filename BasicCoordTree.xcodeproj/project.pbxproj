@@ -14,6 +14,7 @@
 		82EB39E623CB106900B45A0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82EB39E523CB106900B45A0C /* Assets.xcassets */; };
 		82EB39E923CB106900B45A0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82EB39E723CB106900B45A0C /* LaunchScreen.storyboard */; };
 		82EB39F123CB10AA00B45A0C /* BasicCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB39F023CB10AA00B45A0C /* BasicCoordinator.swift */; };
+		FA7BD3EB23D0A77800618E79 /* StartIsInitCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BD3EA23D0A77800618E79 /* StartIsInitCoordinator.swift */; };
 		FA7BD3ED23D0A78400618E79 /* ReusedStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BD3EC23D0A78400618E79 /* ReusedStuff.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		C26C9B868D6D530C0FDD0C63 /* Pods-BasicCoordTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicCoordTree.release.xcconfig"; path = "Target Support Files/Pods-BasicCoordTree/Pods-BasicCoordTree.release.xcconfig"; sourceTree = "<group>"; };
 		CD2466EF1542B344742028C0 /* Pods-BasicCoordTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicCoordTree.debug.xcconfig"; path = "Target Support Files/Pods-BasicCoordTree/Pods-BasicCoordTree.debug.xcconfig"; sourceTree = "<group>"; };
 		F033C1410CC52CD46F0972CD /* libPods-BasicCoordTree.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BasicCoordTree.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA7BD3EA23D0A77800618E79 /* StartIsInitCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartIsInitCoordinator.swift; sourceTree = "<group>"; };
 		FA7BD3EC23D0A78400618E79 /* ReusedStuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusedStuff.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 				82EB39E723CB106900B45A0C /* LaunchScreen.storyboard */,
 				82EB39EA23CB106900B45A0C /* Info.plist */,
 				82EB39F023CB10AA00B45A0C /* BasicCoordinator.swift */,
+				FA7BD3EA23D0A77800618E79 /* StartIsInitCoordinator.swift */,
 				FA7BD3EC23D0A78400618E79 /* ReusedStuff.swift */,
 			);
 			path = BasicCoordTree;
