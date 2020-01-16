@@ -29,12 +29,13 @@ class ProfileBasicCoordinator {
         .disposed(by: profileController.disposeBag)
     }
     
-    func handleLink(_ profileLink: ProfileLink) -> Bool {
-        if self.profileController == nil {
+    func handleLink(_ profileLink: ProfileLink) {
+        guard let profileController = self.profileController else {
             // means haven't started yet
-            start()
+            // or already finished
+            return
         }
-        return true
+        // do whatever
     }
 }
 
@@ -54,46 +55,61 @@ class MainBasicCoordinator {
     func start() {
         let viewModel = MainViewModel(di: di)
         let controller = MainViewController(vm: viewModel)
+        self.mainController = controller
         view.rootViewController = controller
         
         viewModel.profileRequested
-            .bind(onNext: { [unowned controller, unowned self] _ in
-                let profileCoordinator = ProfileBasicCoordinator(view: controller, di: self.di)
-                self.profileCoordinator = profileCoordinator
-                profileCoordinator.done
-                    .bind(onNext: { [unowned self] _ in
-                        self.profileCoordinator = nil
-                    })
-                    .disposed(by: profileCoordinator.disposeBag)
+            .bind(onNext: { [unowned self] _ in
+                self.startProfileCoordinator()
             })
             .disposed(by: controller.disposeBag)
     }
     
-    func handleLink(_ link: MainLink) -> Bool {
+    func handleLink(_ link: MainLink) {
         guard let mainController = self.mainController else {
             // means coordinator is not started yet
-            return false
+            // or already finished
+            return
         }
         switch link {
         case .profile(let profileLink):
-            if let profileCoordinator = self.profileCoordinator {
-                return profileCoordinator.handleLink(profileLink)
-            }
-            let profileCoordinator = ProfileBasicCoordinator(view: mainController, di: di)
-            if profileCoordinator.handleLink(profileLink) {
+            let profileCoordinator = self.profileCoordinator ?? {
+                let profileCoordinator = ProfileBasicCoordinator(view: mainController, di: di)
                 self.profileCoordinator = profileCoordinator
-                
+
                 profileCoordinator.done
                     .bind(onNext: { [unowned self] _ in
                         self.profileCoordinator = nil
                     })
                     .disposed(by: profileCoordinator.disposeBag)
-                
-                return true
-            }
-            return false
+
+                profileCoordinator.start() // ?
+
+                return profileCoordinator
+            }()
+
+            profileCoordinator.handleLink(profileLink)
         case .other:
-            return false
+            break
         }
+    }
+
+    private func startProfileCoordinator() {
+        guard let mainController = self.mainController else {
+            // means the coordinator is dead
+            // or not yet alive
+            return
+        }
+        let profileCoordinator = ProfileBasicCoordinator(view: mainController, di: di)
+
+        self.profileCoordinator = profileCoordinator
+
+        profileCoordinator.done
+            .bind(onNext: { [unowned self] _ in
+                self.profileCoordinator = nil
+            })
+            .disposed(by: profileCoordinator.disposeBag)
+
+        profileCoordinator.start()
     }
 }
